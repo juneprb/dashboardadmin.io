@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+
+    <title>Login</title>
+    <style>
+        .fnt{
+            font-family: 'Poppins', sans-serif;
+        };
+
+        *{
+            height: 200px;
+            margin: auto;
+        }
+
+        html, 
+body {
+    height: 100%;
+}
+    </style>
+  </head>
+  <body class="fnt">    
+        <div class="row h-100">
+          <div class="col-md  d-flex align-items-center" style="background-color: #163Ac7 ;">
+            <div class="d-flex justify-content-center py-5 ">
+                <img src="./logo1.png" class="w-50">
+            </div>
+          </div>
+            <div class="col-md  d-flex align-items-center bg-white" >
+                <div class="d-flex justify-content-center py-5 ">
+                    <div class="container" style="padding-left: 100px ; padding-right: 100px">
+                        <div class="d-flex justify-content-center py-5 mt-2">
+                            <img src="./logo.png" alt="" style="width: 40%">
+                        </div>
+                        <h4 class="fw-bold fs-4 mt-1">Masuk</h4>
+                        <p class="fs-5">Masuk Ke Akun Anda</p>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email</label>
+                                <input type="email" class="form-control" placeholder="Email" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <div class="d-flex">
+                                    <input type="password" class="form-control border-end-0 rounded-0 rounded-start" placeholder="Password" id="myInput">
+                                    <span class="input-group-btn">
+                          <button class="btn btn-default reveal border border-1 border-start-0 rounded-0 rounded-end" type="button">
+                            <svg width="22" height="16" viewBox="0 0 22 16" onclick="myFunction()"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M11 0.5C6 0.5 1.73 3.61 0 8C1.73 12.39 6 15.5 11 15.5C16 15.5 20.27 12.39 22 8C20.27 3.61 16 0.5 11 0.5ZM11 13C8.24 13 6 10.76 6 8C6 5.24 8.24 3 11 3C13.76 3 16 5.24 16 8C16 10.76 13.76 13 11 13ZM11 5C9.34 5 8 6.34 8 8C8 9.66 9.34 11 11 11C12.66 11 14 9.66 14 8C14 6.34 12.66 5 11 5Z" fill="#3D3C4A"/>
+                          </svg>
+                          </button>
+                        </span>
+                                </div>
+                            </div>
+                            <script>
+                                function myFunction() {
+                                    var x = document.getElementById("myInput");
+                                    if (x.type === "password") {
+                                        x.type = "text";
+                                    } else {
+                                        x.type = "password";
+                                    }
+                                }
+                            </script>
+                            <!-- <div class="text-end">
+                                <a href="" class="text-decoration-none text-dark">Lupa Password? </a>
+                            </div> -->
+                            <div class="py-4">
+                                <button type="submit" class="btn w-100 text-white mt-2" style="background-color: #163Ac7 ;">Masuk</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

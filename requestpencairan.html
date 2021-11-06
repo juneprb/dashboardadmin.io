@@ -1,0 +1,1902 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    
+    <title>Request Pencairan</title>
+
+    <style>
+        .fnt{font-family: 'Poppins', sans-serif;}
+        #search::placeholder {
+            color: #7d90de;
+        }
+
+        .progressbar {
+            counter-reset: step;
+        }
+        .progressbar li {
+            list-style-type: none;
+            width: 25%;
+            float: left;
+            font-size: 12px;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            color: #7d7d7d;
+        }
+        .progressbar li:before {
+            width: 30px;
+            height: 30px;
+            content: counter(step);
+            counter-increment: step;
+            line-height: 30px;
+            border: 2px solid #7d7d7d;
+            display: block;
+            text-align: center;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background-color: white;
+        }
+        .progressbar li:after {
+            width: 100%;
+            height: 2px;
+            content: '';
+            position: absolute;
+            background-color: #7d7d7d;
+            top: 15px;
+            left: -50%;
+            z-index: -1;
+        }
+        .progressbar li:first-child:after {
+            content: none;
+        }
+        .progressbar li.active {
+            color: green;
+        }
+        .progressbar li.active:before {
+            border-color: #55b776;
+        }
+        .progressbar li.active + li:after {
+            background-color: #55b776;
+        }
+
+        .has-search .form-control {
+            padding-left: 2.375rem;
+            border-radius: 500px;
+            background-color: #4561D2;
+            border: none;
+        }
+
+        .has-search .form-control-feedback {
+            position: absolute;
+            z-index: 2;
+            display: block;
+            width: 2.375rem;
+            height: 2.375rem;
+            line-height: 2.375rem;
+            text-align: center;
+            pointer-events: none;
+            color: #aaa;
+        }
+
+        #requ_length select{
+            width: 50px;
+            height: 30px;
+        }
+
+        #requ_filter input{
+            width: 60px;
+        }
+
+        #requ_paginate a{
+            font-size: small;
+        }
+        #requ_paginate span a{
+            height: 25px;
+            width: 25px;
+            font-size: 10px;
+        }
+
+        #dana_length select{
+            width: 50px;
+            height: 30px;
+        }
+
+        #dana_filter input{
+            width: 60px;
+        }
+
+        #dana_paginate a{
+            font-size: small;
+        }
+        #dana_paginate span a{
+            height: 25px;
+            width: 25px;
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav style="background-color: #163Ac7" class="main-header navbar navbar-expand navbar-light align-items-center ">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav mt-1 pt-2">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars ml-3 fs-4" ></i></a>
+            </li>
+            <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback" style="color: #7d90de"></span>
+                <input id="search" type="text" class="form-control" placeholder="Search">
+            </div>
+            </form>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul style="margin-top: -10px" class="navbar-nav ml-auto ">
+
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link mr-0" data-toggle="dropdown" href="#">
+                    <svg width="27" height="27" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5003 28.417C16.9212 28.417 18.0837 27.2545 18.0837 25.8337H12.917C12.917 27.2545 14.0666 28.417 15.5003 28.417ZM23.2503 20.667V14.2087C23.2503 10.2432 21.132 6.92366 17.4378 6.04533V5.16699C17.4378 4.09491 16.5724 3.22949 15.5003 3.22949C14.4282 3.22949 13.5628 4.09491 13.5628 5.16699V6.04533C9.85574 6.92366 7.75033 10.2303 7.75033 14.2087V20.667L5.16699 23.2503V24.542H25.8337V23.2503L23.2503 20.667Z" fill="#ECECEE"/>
+                    </svg>
+
+                    <span class="badge badge-danger navbar-badge" style="font-size: 10px;" >2</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right pt-0">
+                    <div class="card-header" style="background-color: #4561d2">
+                        <h6 class="text-white">Notifikasi</h6>
+                    </div>
+                    <div  style="height: 300px;overflow-y: scroll">
+                        <a href="#" class="dropdown-item">
+
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+
+                    </div>
+                    <a href="#" class="dropdown-item dropdown-footer text-center">See All Messages</a>
+                </div>
+            </li>
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link d-flex" data-toggle="dropdown" href="#">
+                    <img src="img.png" alt="User Avatar" class="img-circle mr-3 " width="37px" height="37px">
+                    <p class="text-white">Wiwinda</p>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19 10.0346C18.9959 10.0951 18.9964 10.1105 18.9861 10.1704C18.9628 10.3051 18.9117 10.4347 18.8367 10.549C18.7988 10.6068 18.7547 10.6572 18.7077 10.7076L12.7074 16.7079C12.6631 16.7493 12.653 16.7608 12.6045 16.7976C12.5501 16.8388 12.4915 16.8745 12.4298 16.9038C12.1602 17.0321 11.8403 17.0321 11.5708 16.9038C11.5091 16.8745 11.4504 16.8388 11.396 16.7976C11.3476 16.7608 11.3375 16.7493 11.2932 16.7079L5.29291 10.7076C5.25151 10.6633 5.23991 10.6531 5.20321 10.6047C5.10676 10.4776 5.04165 10.3276 5.0145 10.1704C4.9952 10.0582 4.9952 9.9428 5.0145 9.83054C5.03 9.74079 5.0578 9.65323 5.0969 9.57098C5.24546 9.25857 5.55362 9.04106 5.89774 9.00566C6.03375 8.99171 6.17225 9.00596 6.30256 9.04731C6.41111 9.08176 6.51357 9.13481 6.60427 9.20362C6.65272 9.24037 6.66282 9.25192 6.70717 9.29332L12.0003 14.5864L17.2934 9.29332L17.3433 9.24672C17.3903 9.20847 17.4013 9.19757 17.4521 9.16427C17.5473 9.10181 17.6531 9.05581 17.7637 9.02886C17.8523 9.00731 17.9437 8.99791 18.0347 9.00101C18.3804 9.01281 18.7027 9.20882 18.8722 9.51033C18.928 9.60958 18.9667 9.71834 18.9861 9.83054C18.9964 9.89045 18.9959 9.90585 19 9.96635C19 9.9891 19 10.0119 19 10.0346Z" fill="#ECECEE"/>
+                    </svg>
+
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+                    <a href="#" class="dropdown-item d-flex align-items-center">
+
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0)">
+                                <path d="M8.97012 16.4755H2.24251C1.82988 16.4755 1.49502 16.1406 1.49502 15.728V2.27282C1.49502 1.86019 1.82992 1.52533 2.24251 1.52533H8.97012C9.38348 1.52533 9.71761 1.1912 9.71761 0.777836C9.71761 0.364469 9.38348 0.0302734 8.97012 0.0302734H2.24251C1.00614 0.0302734 0 1.03645 0 2.27282V15.728C0 16.9643 1.00614 17.9705 2.24251 17.9705H8.97012C9.38348 17.9705 9.71761 17.6363 9.71761 17.223C9.71761 16.8096 9.38348 16.4755 8.97012 16.4755Z" fill="#3D3C4A"/>
+                                <path d="M17.7772 8.46784L13.2323 3.98278C12.9393 3.69274 12.4654 3.6965 12.1753 3.99027C11.8853 4.28403 11.8883 4.7572 12.1828 5.04724L15.4307 8.25254H6.72747C6.31411 8.25254 5.97998 8.58667 5.97998 9.00004C5.97998 9.4134 6.31411 9.74756 6.72747 9.74756H15.4307L12.1828 12.9529C11.8883 13.2429 11.8861 13.7161 12.1753 14.0098C12.3218 14.1578 12.5147 14.2326 12.7076 14.2326C12.8974 14.2326 13.0873 14.1608 13.2323 14.0173L17.7772 9.53223C17.9192 9.39171 17.9999 9.20032 17.9999 9C17.9999 8.79975 17.9199 8.60913 17.7772 8.46784Z" fill="#3D3C4A"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0">
+                                    <rect width="18" height="18" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <p class="ml-3">Keluar</p>
+                    </a>
+
+
+                </div>
+            </li>
+            <li class="nav-item">
+
+            </li>
+            <li class="nav-item">
+
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <aside class="main-sidebar sidebar-light-blue elevation-2 min-vh-100">
+        <!-- Brand Logo -->
+        <a href="dashboard.html" class="btn">
+            <div class=" align-items-center py-3" >
+                <img src="./logo.png" alt="" class="w-75">
+            </div>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M3.125 13.5417H11.4583V3.125H3.125V13.5417ZM3.125 21.875H11.4583V15.625H3.125V21.875ZM13.5417 21.875H21.875V11.4583H13.5417V21.875ZM13.5417 3.125V9.375H21.875V3.125H13.5417Z" fill="black"/>
+                            </svg>
+
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="kelolaakun.html" class="nav-link">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0003 2.16699C7.02033 2.16699 2.16699 7.02033 2.16699 13.0003C2.16699 18.9803 7.02033 23.8337 13.0003 23.8337C18.9803 23.8337 23.8337 18.9803 23.8337 13.0003C23.8337 7.02033 18.9803 2.16699 13.0003 2.16699ZM13.0003 5.41699C14.7987 5.41699 16.2503 6.86866 16.2503 8.66699C16.2503 10.4653 14.7987 11.917 13.0003 11.917C11.202 11.917 9.75033 10.4653 9.75033 8.66699C9.75033 6.86866 11.202 5.41699 13.0003 5.41699ZM13.0003 20.8003C10.292 20.8003 7.89783 19.4137 6.50033 17.312C6.53282 15.1561 10.8337 13.9753 13.0003 13.9753C15.1562 13.9753 19.4678 15.1561 19.5003 17.312C18.1028 19.4137 15.7087 20.8003 13.0003 20.8003Z" fill="black"/>
+                            </svg>
+
+                            <p>
+                                Kelola Akun
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="kelolaportofolio.html" class="nav-link ">
+                            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#)">
+                                    <path d="M8.3398 16.5635C8.13063 17.5918 7.99484 18.089 7.20112 18.1527C7.00554 18.1684 6.84626 18.316 6.81576 18.5098C6.78519 18.7036 6.8914 18.8931 7.07269 18.9681C7.12371 18.9892 8.33768 19.4852 9.756 19.4853C9.75621 19.4853 9.75635 19.4853 9.7565 19.4853C10.7449 19.4853 11.5927 19.2457 12.2764 18.7733C13.0866 18.2134 13.6452 17.3372 13.9422 16.1701L11.2128 13.4189C8.90624 13.7923 8.57947 15.3852 8.3398 16.5635Z" fill="black"/>
+                                    <path d="M22.8375 4.48159C22.7641 4.40757 22.6332 4.31934 22.4267 4.31934C22.1844 4.31934 21.541 4.31934 17.6333 7.64451C15.8283 9.18044 13.7472 11.0806 12.0918 12.6975L14.6818 15.3082C16.3844 13.5385 18.3705 11.3205 19.95 9.41678C20.9475 8.21484 21.7144 7.22306 22.2297 6.46911C22.9121 5.47047 23.211 4.85796 22.8375 4.48159Z" fill="black"/>
+                                    <path d="M12.9205 19.7049C12.044 20.3106 10.9796 20.6176 9.75639 20.6176C8.14638 20.6176 6.79018 20.0764 6.63967 20.0143C5.97275 19.7379 5.58548 19.0467 5.69785 18.3338C5.80788 17.6353 6.36746 17.1044 7.06643 17.0285C7.12735 16.8466 7.19472 16.5152 7.23081 16.338C7.36369 15.6849 7.54562 14.7903 8.10526 13.994C8.71642 13.1246 9.63766 12.5671 10.8473 12.3336C11.5415 11.6446 12.3336 10.887 13.1602 10.1182C12.7423 10.0275 12.3687 9.75539 12.1683 9.34378C11.8234 8.63476 12.1243 7.78188 12.8394 7.44068C13.5564 7.09862 14.4165 7.39737 14.7609 8.10745C14.8289 8.24742 14.871 8.39283 14.8906 8.53881C15.5761 7.92482 16.2569 7.32887 16.8996 6.78197C16.9034 6.77871 16.907 6.7756 16.9109 6.77234C16.1885 5.38997 15.1526 4.16517 13.8904 3.22738C12.0779 1.88074 9.91971 1.16853 7.64928 1.16797C7.64858 1.16797 7.64808 1.16797 7.64751 1.16797C6.11527 1.16797 4.25271 1.70334 2.78648 2.56542C0.989303 3.62201 -0.000353708 5.0351 9.48306e-08 6.54421C0.000566179 8.36615 1.02815 9.12824 1.85386 9.74053C2.52714 10.2399 3.05891 10.6342 3.05919 11.4985C3.0594 12.3627 2.52792 12.7567 1.85499 13.2556C1.02957 13.8675 0.00219367 14.6292 0.00275976 16.4513C0.00318432 17.9602 0.993478 19.3737 2.79115 20.4312C4.25844 21.2943 6.12199 21.8308 7.65452 21.8312C7.65558 21.8312 7.6565 21.8312 7.65749 21.8312C10.4387 21.8312 13.0533 20.7577 15.0197 18.8084C16.4941 17.3468 17.472 15.5239 17.8694 13.5408C16.8822 14.6355 15.8884 15.6985 14.9992 16.6063C14.622 17.9703 13.9238 19.0117 12.9205 19.7049ZM7.85824 5.45542C8.035 4.68618 8.80643 4.206 9.58154 4.38219C10.3556 4.55754 10.8406 5.32204 10.6651 6.09021C10.4883 6.85754 9.71641 7.33779 8.94123 7.16252C8.16654 6.98816 7.68134 6.22275 7.85824 5.45542ZM3.18804 8.07703C2.69237 7.46028 2.79426 6.56268 3.41561 6.07174C4.03689 5.58173 4.94199 5.68221 5.43858 6.29782C5.9332 6.91365 5.83095 7.81125 5.2101 8.30318C4.59016 8.79425 3.68365 8.69271 3.18804 8.07703ZM3.94462 17.4893C3.32291 16.9979 3.22067 16.1003 3.71634 15.4838C4.21167 14.8685 5.11712 14.7676 5.73875 15.2588C6.35989 15.7501 6.4622 16.6478 5.96695 17.2632C5.4717 17.8798 4.56618 17.9806 3.94462 17.4893Z" fill="black"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0">
+                                        <rect width="23" height="23" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <p>
+                                Kelola Portofolio
+
+                            </p>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="kelolapesanan.html" class="nav-link">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21.5029 19.791L20.4313 6.28584C20.3648 5.4157 19.6286 4.73438 18.7561 4.73438H16.6391V7.87111C16.6391 8.25956 16.3246 8.574 15.9362 8.574C15.5482 8.574 15.2333 8.25956 15.2333 7.87111V4.73438H8.76682V7.87111C8.76682 8.25956 8.45191 8.574 8.06393 8.574C7.67548 8.574 7.36104 8.25956 7.36104 7.87111V4.73438H5.24397C4.37149 4.73438 3.63532 5.4157 3.5688 6.28397L2.49668 19.7928C2.41376 20.8748 2.78908 21.9516 3.52615 22.7473C4.26326 23.5429 5.30819 23.9998 6.39297 23.9998H17.6072C18.6919 23.9998 19.7369 23.5429 20.474 22.7472C21.2111 21.9516 21.5864 20.8747 21.5029 19.791ZM15.1668 12.9135L11.5315 16.5488C11.3942 16.6861 11.2142 16.755 11.0343 16.755C10.8543 16.755 10.6744 16.6861 10.5371 16.5488L8.83338 14.845C8.55879 14.5704 8.55879 14.1257 8.83338 13.8511C9.10797 13.5765 9.55315 13.5765 9.82727 13.8511L11.0343 15.0577L14.1729 11.9192C14.447 11.6451 14.8922 11.6451 15.1668 11.9192C15.4413 12.1938 15.4413 12.6389 15.1668 12.9135Z" fill="black"/>
+                                <path d="M12.0003 0C9.4423 0 7.36133 2.08144 7.36133 4.63945V4.73456H8.76711V4.63945C8.76711 2.85647 10.2174 1.40573 12.0004 1.40573C13.7833 1.40573 15.2336 2.85647 15.2336 4.63945V4.73456H16.6393V4.63945C16.6393 2.08144 14.5583 0 12.0003 0Z" fill="black"/>
+                            </svg>
+
+                            <p >
+                                Pantau Pesanan
+                            </p>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="iklan.html" class="nav-link">
+                            <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.6944 8.97247V7.08357C13.6944 6.82303 13.4823 6.61133 13.2222 6.61133H12.75V9.44466H13.2222C13.4823 9.44466 13.6944 9.233 13.6944 8.97247Z" fill="black"/>
+                                <path d="M9.91713 7.08357C9.91713 6.82303 9.70498 6.61133 9.44489 6.61133C9.1848 6.61133 8.97266 6.82299 8.97266 7.08357V8.50023H9.91713V7.08357Z" fill="black"/>
+                                <path d="M20.7778 0H1.8889C0.847609 0 0 0.847122 0 1.8889V15.1111C0 16.1529 0.847609 17 1.8889 17H20.7778C21.8191 17 22.6667 16.1529 22.6667 15.1111V1.8889C22.6667 0.847122 21.8191 0 20.7778 0ZM11.8056 6.1389C11.8056 5.87788 12.0168 5.66667 12.2778 5.66667H13.2222C14.0034 5.66667 14.6389 6.30213 14.6389 7.08333V8.97224C14.6389 9.75344 14.0034 10.3889 13.2222 10.3889H12.2778C12.0168 10.3889 11.8056 10.1777 11.8056 9.91667V6.1389ZM8.02776 7.08333C8.02776 6.30213 8.66323 5.66667 9.44443 5.66667C10.2256 5.66667 10.8611 6.30213 10.8611 7.08333V9.91667C10.8611 10.1777 10.6499 10.3889 10.3889 10.3889C10.1278 10.3889 9.91662 10.1777 9.91662 9.91667V9.44443H8.97219V9.91667C8.97219 10.1777 8.76098 10.3889 8.49996 10.3889C8.23893 10.3889 8.02772 10.1777 8.02772 9.91667V7.08333H8.02776ZM20.3056 15.1111H5.04931C4.88453 15.3881 4.59522 15.5833 4.25 15.5833C3.90478 15.5833 3.61547 15.3881 3.45069 15.1111H2.3611C2.10008 15.1111 1.88886 14.8999 1.88886 14.6389C1.88886 14.3778 2.10012 14.1667 2.3611 14.1667H3.45069C3.61542 13.8896 3.90478 13.6944 4.25 13.6944C4.59522 13.6944 4.88453 13.8896 5.04931 14.1667H20.3056C20.5666 14.1667 20.7778 14.3779 20.7778 14.6389C20.7778 14.8999 20.5666 15.1111 20.3056 15.1111Z" fill="black"/>
+                            </svg>
+
+
+                            <p >
+                                Iklan
+                            </p>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="rekaptransaksi.html" class="nav-link">
+                            <svg width="23" height="18" viewBox="0 0 23 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.522 4.42093H10.3098L8.67633 2.47946C8.62138 2.41341 8.53903 2.37636 8.45317 2.37904H1.82765C0.816084 2.38641 0 3.20852 0 4.22008V16.1612C0.00122736 17.1762 0.823783 17.9988 1.83881 18H18.522C19.537 17.9988 20.3596 17.1762 20.3608 16.1612V6.25974C20.3596 5.24471 19.537 4.42215 18.522 4.42093Z" fill="black"/>
+                                <path d="M20.934 2.04202H12.7196L11.0861 0.100556C11.0311 0.0345019 10.9488 -0.00254207 10.8629 0.000135812H4.23962C3.32178 0.00164212 2.54564 0.679704 2.4209 1.58901H8.46175C8.77852 1.58823 9.07928 1.72804 9.28296 1.97061L10.6777 3.62866H18.5217C19.9724 3.63112 21.148 4.80665 21.1504 6.25745V15.6032C22.0703 15.4885 22.7609 14.707 22.7616 13.7801V3.8786C22.7592 2.86876 21.9438 2.04938 20.934 2.04202Z" fill="black"/>
+                            </svg>
+                            <p>
+                                Rekap Transaksi
+                            </p>
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.1411 4.02002L13.9115 1.62609L13.447 0.687289C13.1431 0.07707 12.402 -0.174923 11.7917 0.128951L3.94043 4.02002H5.1411Z" fill="#163Ac7"/>
+                                <path d="M16.634 1.69531C16.5253 1.69531 16.4166 1.71014 16.3079 1.73978L14.2475 2.30306L7.95508 4.02007H15.0974H18.2102L17.8248 2.60694C17.6766 2.05601 17.1775 1.69531 16.634 1.69531Z" fill="#163Ac7"/>
+                                <path d="M19.4974 4.88477H19.2157H18.8328H18.4499H15.5272H4.78787H3.37967H2.19382H1.97395H1.23773C0.847389 4.88477 0.499046 5.06511 0.271757 5.34922C0.167996 5.48016 0.0889388 5.63086 0.0444694 5.79639C0.0172937 5.90015 0 6.00885 0 6.12003V6.26826V7.67646V19.8833C0 20.5652 0.553397 21.1186 1.23526 21.1186H19.4949C20.1768 21.1186 20.7302 20.5652 20.7302 19.8833V16.4369H13.4001C12.2414 16.4369 11.3002 15.4957 11.3002 14.337V13.2055V12.8226V12.4396V11.5898C11.3002 11.0215 11.5274 10.5052 11.8956 10.1272C12.2217 9.79122 12.659 9.56393 13.1481 9.50711C13.2296 9.49726 13.3136 9.49229 13.3976 9.49229H19.7024H20.0853H20.4683H20.7302V6.12003C20.7326 5.43816 20.1792 4.88477 19.4974 4.88477Z" fill="#163Ac7"/>
+                                <path d="M21.5975 10.6732C21.474 10.5596 21.3282 10.4731 21.1652 10.4163C21.0391 10.3743 20.9057 10.3496 20.7649 10.3496H20.7328H20.7081H20.3252H18.9442H13.4003C12.7184 10.3496 12.165 10.903 12.165 11.5849V12.2V12.5829V12.9659V14.3345C12.165 15.0164 12.7184 15.5698 13.4003 15.5698H20.7328H20.7649C20.9057 15.5698 21.0392 15.5451 21.1652 15.5031C21.3282 15.4487 21.474 15.3598 21.5975 15.2462C21.8445 15.0213 22.0002 14.6952 22.0002 14.3346V11.5849C22.0002 11.2241 21.8445 10.898 21.5975 10.6732ZM15.9795 13.2055C15.9795 13.5464 15.7028 13.8231 15.3619 13.8231H14.9518C14.6109 13.8231 14.3342 13.5464 14.3342 13.2055V12.7954C14.3342 12.5978 14.4256 12.4223 14.5713 12.3112C14.6776 12.2296 14.8085 12.1778 14.9518 12.1778H15.0556H15.3619C15.7028 12.1778 15.9795 12.4544 15.9795 12.7954V13.2055Z" fill="#163Ac7"/>
+                            </svg>
+
+                            <p style="color: #163Ac7">
+                                Keuangan
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="requestpencairan.html" class="nav-link ">
+                                    <p style="color: #163Ac7">Request Pencairan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="rekapkeuangan.html" class="nav-link">
+                                    <p>Rekap Keuangan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.8332 10.833V6.49967C23.8332 5.29717 22.8582 4.33301 21.6665 4.33301H4.33317C3.1415 4.33301 2.17734 5.29717 2.17734 6.49967V10.833C3.369 10.833 4.33317 11.808 4.33317 12.9997C4.33317 14.1913 3.369 15.1663 2.1665 15.1663V19.4997C2.1665 20.6913 3.1415 21.6663 4.33317 21.6663H21.6665C22.8582 21.6663 23.8332 20.6913 23.8332 19.4997V15.1663C22.6415 15.1663 21.6665 14.1913 21.6665 12.9997C21.6665 11.808 22.6415 10.833 23.8332 10.833ZM14.0832 18.958H11.9165V16.7913H14.0832V18.958ZM14.0832 14.083H11.9165V11.9163H14.0832V14.083ZM14.0832 9.20801H11.9165V7.04134H14.0832V9.20801Z" fill="black"/>
+                            </svg>
+
+                            <p>
+                                Tiket
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="ticketing.html" class="nav-link">
+
+                                    <p>Ticketing</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="completed.html" class="nav-link">
+
+                                    <p>Completed</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <div class="content-wrapper ">
+        <h3 class="fw-bold fs-2 p-2 bg-white"> Keuangan</h3>
+        <div class="container">
+
+            <div class="container-fliud bg-white p-3 m-4 text-white  ">
+                <div class="container">
+
+                    <div class="container-fluid row d-flex justify-content-center">
+                        <div class="container mx-5 my-3" style="width: 22rem; border-radius: 10px;">
+                            <div class="card-body " style="background-color: rgba(23, 142, 251, 0.6) !important; border-radius: 8px;">
+                                <h4 class="card-title fw-bold">Total Profit</h4>
+                                <h2 class="card-text text-center fw-bold p-3">Rp 5.000.000</h2>
+                            </div>
+                        </div>
+                        <div class="container mx-5 my-3" style="width: 22rem; border-radius: 10px;">
+                            <div class="card-body " style="background-color: rgba(243, 23, 94, 0.6) !important; border-radius: 8px;">
+                                <h4 class="card-title fw-bold">Total Penjualan</h4>
+                                <h2 class="card-text text-center fw-bold p-3">Rp 25.000.000</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container row d-flex justify-content-center">
+                        <div class="container mx-5 my-3" style="width: 22rem; border-radius: 10px;">
+                            <div class="card-body " style="background-color: rgba(39, 174, 96, 0.6) !important; border-radius: 8px;">
+                                <h4 class="card-title fw-bold">Total Pencairan</h4>
+                                <h2 class="card-text text-center fw-bold p-3">Rp 10.000.000</h2>
+                            </div>
+                        </div>
+                        <div class="container mx-5 my-3" style="width: 22rem; border-radius: 10px;">
+                            <div class="card-body " style="background-color: rgba(242, 153, 74, 0.6) !important; border-radius: 8px;">
+                                <h4 class="card-title fw-bold">Total Tersimpan</h4>
+                                <h2 class="card-text text-center fw-bold p-3">Rp 10.000.000</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- table request -->
+                    <div class="container card w-75 p-4 d-flex justify-content-center  mt-2 mx-auto p-3 mb-5 bg-body rounded">
+
+                        <h4 class="text-dark fw-bold ms-4 mb-3">Request</h4>
+                        <div class="table-responsive p-3">
+                             <table class="display text-center text-dark" id="requ">
+
+
+                            <thead class="border-bottom">
+                            <tr>
+                                <th scope="col">Id Request</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Artist</th>
+                                <th scope="col">Nominal</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td> R001
+
+                                </td>
+                                <td>26/04/2021</td>
+                                <td>
+                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#mod1">
+                                        Rayes
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="mod1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content"style="border-radius: 30px;">
+                                                <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">
+                                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Request</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="container table-responsive d-flex justify-content-center p-3">
+                                                        <table class="border border-secondary" >
+                                                            <tr>
+                                                                <td class="border-bottom border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <h5 class="text-center fw-bold">Data</h5>
+                                                                </td>
+                                                                <td class="border-bottom border-left border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <p class="text-center fw-bold"> Jumlah Penarikan</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <table class="table w-50">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <th class="text-start">Artist</th>
+                                                                            <td class="text-start">Rayes</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Toko</th>
+                                                                            <td class="text-start">Rayestulator</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Email</th>
+                                                                            <td class="text-start">Rayes@mail.com</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Kontak</th>
+                                                                            <td class="text-start">08534277243</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Rekening</th>
+                                                                            <td class="text-start">BCA/123456</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+                                                                </td>
+
+                                                                <td class="border-left border-secondary">
+                                                                    <table class="table" >
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td class="text-center">Rp 600.000</td>
+                                                                        </tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td>
+                                                                            <p class="text-success">Bukti Transfer</p>
+                                                                            <!-- Button trigger modal -->
+                                                                            <div class="d-flex justify-content-end">
+
+                                                                                <a href="pp2" class="link-secondary" data-bs-toggle="modal" data-bs-target="#pp2">
+                                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM13.96 12.29L11.21 15.83L9.25 13.47L6.5 17H17.5L13.96 12.29Z" fill="#3D3C4A"/>
+                                                                                    </svg>
+                                                                                </a>
+                                                                            </div>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="pp2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-body">
+                                                                                            <img src="./jen.png" alt="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td></tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="w-75 d-flex justify-content-end m-3">
+                                                    <p class="fw-bold me-1">Status : </p>
+                                                    <p class="text-success ms-1">Berhasil Ditransfer <br> 27 Mei 2021| 14:05</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Rp 600.000</td>
+                                <td>
+                                    <svg width="61" height="26" viewBox="0 0 61 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect y="1" width="61" height="23" rx="8" fill="#27AE60"/>
+                                        <path d="M18.8893 8.636C19.8013 8.636 20.5893 8.808 21.2533 9.152C21.9253 9.488 22.4373 9.972 22.7893 10.604C23.1493 11.236 23.3293 11.98 23.3293 12.836C23.3293 13.692 23.1493 14.436 22.7893 15.068C22.4373 15.692 21.9253 16.172 21.2533 16.508C20.5893 16.836 19.8013 17 18.8893 17H16.2853V8.636H18.8893ZM18.8893 16.1C19.9693 16.1 20.7933 15.816 21.3613 15.248C21.9293 14.672 22.2133 13.868 22.2133 12.836C22.2133 11.796 21.9253 10.984 21.3493 10.4C20.7813 9.816 19.9613 9.524 18.8893 9.524H17.3773V16.1H18.8893ZM27.6377 17.108C27.0217 17.108 26.4617 16.968 25.9577 16.688C25.4617 16.408 25.0697 16.012 24.7817 15.5C24.5017 14.98 24.3617 14.38 24.3617 13.7C24.3617 13.028 24.5057 12.436 24.7937 11.924C25.0897 11.404 25.4897 11.008 25.9937 10.736C26.4977 10.456 27.0617 10.316 27.6857 10.316C28.3097 10.316 28.8737 10.456 29.3777 10.736C29.8817 11.008 30.2777 11.4 30.5657 11.912C30.8617 12.424 31.0097 13.02 31.0097 13.7C31.0097 14.38 30.8577 14.98 30.5537 15.5C30.2577 16.012 29.8537 16.408 29.3417 16.688C28.8297 16.968 28.2617 17.108 27.6377 17.108ZM27.6377 16.148C28.0297 16.148 28.3977 16.056 28.7417 15.872C29.0857 15.688 29.3617 15.412 29.5697 15.044C29.7857 14.676 29.8937 14.228 29.8937 13.7C29.8937 13.172 29.7897 12.724 29.5817 12.356C29.3737 11.988 29.1017 11.716 28.7657 11.54C28.4297 11.356 28.0657 11.264 27.6737 11.264C27.2737 11.264 26.9057 11.356 26.5697 11.54C26.2417 11.716 25.9777 11.988 25.7777 12.356C25.5777 12.724 25.4777 13.172 25.4777 13.7C25.4777 14.236 25.5737 14.688 25.7657 15.056C25.9657 15.424 26.2297 15.7 26.5577 15.884C26.8857 16.06 27.2457 16.148 27.6377 16.148ZM35.6495 10.304C36.4495 10.304 37.0975 10.548 37.5935 11.036C38.0895 11.516 38.3375 12.212 38.3375 13.124V17H37.2575V13.28C37.2575 12.624 37.0935 12.124 36.7655 11.78C36.4375 11.428 35.9895 11.252 35.4215 11.252C34.8455 11.252 34.3855 11.432 34.0415 11.792C33.7055 12.152 33.5375 12.676 33.5375 13.364V17H32.4455V10.424H33.5375V11.36C33.7535 11.024 34.0455 10.764 34.4135 10.58C34.7895 10.396 35.2015 10.304 35.6495 10.304ZM46.1213 13.46C46.1213 13.668 46.1093 13.888 46.0853 14.12H40.8293C40.8693 14.768 41.0893 15.276 41.4893 15.644C41.8973 16.004 42.3893 16.184 42.9653 16.184C43.4373 16.184 43.8293 16.076 44.1413 15.86C44.4613 15.636 44.6853 15.34 44.8133 14.972H45.9893C45.8133 15.604 45.4613 16.12 44.9333 16.52C44.4053 16.912 43.7493 17.108 42.9653 17.108C42.3413 17.108 41.7813 16.968 41.2853 16.688C40.7973 16.408 40.4133 16.012 40.1333 15.5C39.8533 14.98 39.7133 14.38 39.7133 13.7C39.7133 13.02 39.8493 12.424 40.1213 11.912C40.3933 11.4 40.7733 11.008 41.2613 10.736C41.7573 10.456 42.3253 10.316 42.9653 10.316C43.5893 10.316 44.1413 10.452 44.6213 10.724C45.1013 10.996 45.4693 11.372 45.7253 11.852C45.9893 12.324 46.1213 12.86 46.1213 13.46ZM44.9933 13.232C44.9933 12.816 44.9013 12.46 44.7173 12.164C44.5333 11.86 44.2813 11.632 43.9613 11.48C43.6493 11.32 43.3013 11.24 42.9173 11.24C42.3653 11.24 41.8933 11.416 41.5013 11.768C41.1173 12.12 40.8973 12.608 40.8413 13.232H44.9933Z" fill="white"/>
+                                    </svg>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> R002
+
+                                </td>
+                                <td>22/04/2021</td>
+                                <td>
+                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#mod2">
+                                        DanielHyu
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="mod2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content"style="border-radius: 30px;">
+                                                <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">
+                                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Request</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="d-flex justify-content-start p-2">
+                                                        <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">26 Mei 2021</p>
+                                                    </div>
+                                                    <div class="container table-responsive d-flex justify-content-center">
+                                                        <table class="border border-secondary">
+                                                            <tr>
+                                                                <td class="border-bottom border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <h5 class="text-center fw-bold">Data</h5>
+                                                                </td>
+                                                                <td class="border-bottom border-left border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <p class="text-center fw-bold"> Jumlah Penarikan</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <table class="table w-50">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <th class="text-start">Artist</th>
+                                                                            <td class="text-start"><button href="">Daniel Hyu</button></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Toko</th>
+                                                                            <td class="text-start">Reyasturator</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Email</th>
+                                                                            <td class="text-start">Rayes@mail.com</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Kontak</th>
+                                                                            <td class="text-start">08534277243</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Rekening</th>
+                                                                            <td class="text-start">BCA/123456</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+                                                                </td>
+
+                                                                <td class="border-left border-secondary">
+                                                                    <table class="table ">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td class="text-center">Rp 550.000</td>
+                                                                        </tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td>
+                                                                            <p class="text-success">Bukti Transfer</p>
+                                                                            <!-- Button trigger modal -->
+                                                                            <div class="d-flex justify-content-end">
+
+                                                                                <a href="pp1" class="link-secondary" data-bs-toggle="modal" data-bs-target="#pp1">
+                                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM13.96 12.29L11.21 15.83L9.25 13.47L6.5 17H17.5L13.96 12.29Z" fill="#3D3C4A"/>
+                                                                                    </svg>
+                                                                                </a>
+                                                                            </div>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="pp1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-body">
+                                                                                            <img src="./jen.png" alt="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </td></tr>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="w-75 d-flex justify-content-end m-3">
+                                                    <p class="fw-bold me-1">Status : </p>
+                                                    <p class="text-success ms-1">Waiting</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Rp 550.000</td>
+                                <td>
+                                    <svg width="61" height="26" viewBox="0 0 61 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect y="1" width="61" height="23" rx="8" fill="#F2C94C"/>
+                                        <path d="M19.4965 8.636L17.0725 17H15.8485L13.9045 10.268L11.8885 17L10.6765 17.012L8.33655 8.636H9.50055L11.3245 15.728L13.3405 8.636H14.5645L16.4845 15.704L18.3205 8.636H19.4965ZM20.2836 13.688C20.2836 13.016 20.4196 12.428 20.6916 11.924C20.9636 11.412 21.3356 11.016 21.8076 10.736C22.2876 10.456 22.8196 10.316 23.4036 10.316C23.9796 10.316 24.4796 10.44 24.9036 10.688C25.3276 10.936 25.6436 11.248 25.8516 11.624V10.424H26.9556V17H25.8516V15.776C25.6356 16.16 25.3116 16.48 24.8796 16.736C24.4556 16.984 23.9596 17.108 23.3916 17.108C22.8076 17.108 22.2796 16.964 21.8076 16.676C21.3356 16.388 20.9636 15.984 20.6916 15.464C20.4196 14.944 20.2836 14.352 20.2836 13.688ZM25.8516 13.7C25.8516 13.204 25.7516 12.772 25.5516 12.404C25.3516 12.036 25.0796 11.756 24.7356 11.564C24.3996 11.364 24.0276 11.264 23.6196 11.264C23.2116 11.264 22.8396 11.36 22.5036 11.552C22.1676 11.744 21.8996 12.024 21.6996 12.392C21.4996 12.76 21.3996 13.192 21.3996 13.688C21.3996 14.192 21.4996 14.632 21.6996 15.008C21.8996 15.376 22.1676 15.66 22.5036 15.86C22.8396 16.052 23.2116 16.148 23.6196 16.148C24.0276 16.148 24.3996 16.052 24.7356 15.86C25.0796 15.66 25.3516 15.376 25.5516 15.008C25.7516 14.632 25.8516 14.196 25.8516 13.7ZM29.365 9.356C29.157 9.356 28.981 9.284 28.837 9.14C28.693 8.996 28.621 8.82 28.621 8.612C28.621 8.404 28.693 8.228 28.837 8.084C28.981 7.94 29.157 7.868 29.365 7.868C29.565 7.868 29.733 7.94 29.869 8.084C30.013 8.228 30.085 8.404 30.085 8.612C30.085 8.82 30.013 8.996 29.869 9.14C29.733 9.284 29.565 9.356 29.365 9.356ZM29.893 10.424V17H28.801V10.424H29.893ZM33.0861 11.324V15.2C33.0861 15.52 33.1541 15.748 33.2901 15.884C33.4261 16.012 33.6621 16.076 33.9981 16.076H34.8021V17H33.8181C33.2101 17 32.7541 16.86 32.4501 16.58C32.1461 16.3 31.9941 15.84 31.9941 15.2V11.324H31.1421V10.424H31.9941V8.768H33.0861V10.424H34.8021V11.324H33.0861ZM36.6892 9.356C36.4812 9.356 36.3052 9.284 36.1612 9.14C36.0172 8.996 35.9452 8.82 35.9452 8.612C35.9452 8.404 36.0172 8.228 36.1612 8.084C36.3052 7.94 36.4812 7.868 36.6892 7.868C36.8892 7.868 37.0572 7.94 37.1932 8.084C37.3372 8.228 37.4092 8.404 37.4092 8.612C37.4092 8.82 37.3372 8.996 37.1932 9.14C37.0572 9.284 36.8892 9.356 36.6892 9.356ZM37.2172 10.424V17H36.1252V10.424H37.2172ZM42.2823 10.304C43.0823 10.304 43.7303 10.548 44.2263 11.036C44.7223 11.516 44.9703 12.212 44.9703 13.124V17H43.8903V13.28C43.8903 12.624 43.7263 12.124 43.3983 11.78C43.0703 11.428 42.6223 11.252 42.0543 11.252C41.4783 11.252 41.0183 11.432 40.6743 11.792C40.3383 12.152 40.1703 12.676 40.1703 13.364V17H39.0783V10.424H40.1703V11.36C40.3863 11.024 40.6783 10.764 41.0463 10.58C41.4223 10.396 41.8343 10.304 42.2823 10.304ZM49.4661 10.316C50.0341 10.316 50.5301 10.44 50.9541 10.688C51.3861 10.936 51.7061 11.248 51.9141 11.624V10.424H53.0181V17.144C53.0181 17.744 52.8901 18.276 52.6341 18.74C52.3781 19.212 52.0101 19.58 51.5301 19.844C51.0581 20.108 50.5061 20.24 49.8741 20.24C49.0101 20.24 48.2901 20.036 47.7141 19.628C47.1381 19.22 46.7981 18.664 46.6941 17.96H47.7741C47.8941 18.36 48.1421 18.68 48.5181 18.92C48.8941 19.168 49.3461 19.292 49.8741 19.292C50.4741 19.292 50.9621 19.104 51.3381 18.728C51.7221 18.352 51.9141 17.824 51.9141 17.144V15.764C51.6981 16.148 51.3781 16.468 50.9541 16.724C50.5301 16.98 50.0341 17.108 49.4661 17.108C48.8821 17.108 48.3501 16.964 47.8701 16.676C47.3981 16.388 47.0261 15.984 46.7541 15.464C46.4821 14.944 46.3461 14.352 46.3461 13.688C46.3461 13.016 46.4821 12.428 46.7541 11.924C47.0261 11.412 47.3981 11.016 47.8701 10.736C48.3501 10.456 48.8821 10.316 49.4661 10.316ZM51.9141 13.7C51.9141 13.204 51.8141 12.772 51.6141 12.404C51.4141 12.036 51.1421 11.756 50.7981 11.564C50.4621 11.364 50.0901 11.264 49.6821 11.264C49.2741 11.264 48.9021 11.36 48.5661 11.552C48.2301 11.744 47.9621 12.024 47.7621 12.392C47.5621 12.76 47.4621 13.192 47.4621 13.688C47.4621 14.192 47.5621 14.632 47.7621 15.008C47.9621 15.376 48.2301 15.66 48.5661 15.86C48.9021 16.052 49.2741 16.148 49.6821 16.148C50.0901 16.148 50.4621 16.052 50.7981 15.86C51.1421 15.66 51.4141 15.376 51.6141 15.008C51.8141 14.632 51.9141 14.196 51.9141 13.7Z" fill="white"/>
+                                    </svg>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td> R003
+
+                                </td>
+                                <td>22/04/2021</td>
+                                <td>
+                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#mod3">
+                                        Hilarry
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="mod3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                        <div class="modal-dialog">
+                                            <div class="modal-content"style="border-radius: 30px;">
+                                                <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">
+                                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Request</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="d-flex justify-content-start p-2">
+                                                        <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">26 Mei 2021</p>
+                                                    </div>
+                                                    <div class="container table-responsive d-flex justify-content-center">
+                                                        <table class="border border-secondary">
+                                                            <tr>
+                                                                <td class="border-bottom border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <h5 class="text-center fw-bold">Data</h5>
+                                                                </td>
+                                                                <td class="border-bottom border-left border-secondary" style="background-color: rgba(196, 196, 196, 0.5);">
+                                                                    <p class="text-center fw-bold"> Jumlah Penarikan</p>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <table class="table w-50">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <th class="text-start">Artist</th>
+                                                                            <td class="text-start">Hillary</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Toko</th>
+                                                                            <td class="text-start">Hilarrysturator</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Email</th>
+                                                                            <td class="text-start">Hilarry@mail.com</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Kontak</th>
+                                                                            <td class="text-start">08534277243</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th class="text-start">Rekening</th>
+                                                                            <td class="text-start">BCA/123456</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+                                                                </td>
+
+                                                                <td class="border-left border-secondary">
+                                                                    <table class="table ">
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <td class="text-center">Rp 550.000</td>
+                                                                        </tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td></td></tr>
+                                                                        <tr><td>
+                                                                            <p class="text-success">Bukti Transfer</p>
+                                                                            <!-- Button trigger modal -->
+                                                                            <div class="d-flex justify-content-end">
+
+                                                                                <a href="pp3" class="link-secondary" data-bs-toggle="modal" data-bs-target="#pp3">
+                                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM13.96 12.29L11.21 15.83L9.25 13.47L6.5 17H17.5L13.96 12.29Z" fill="#3D3C4A"/>
+                                                                                    </svg>
+                                                                                </a>
+                                                                            </div>
+                                                                            <!-- Modal -->
+                                                                            <div class="modal fade" id="pp3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-body">
+                                                                                            <img src="./jen.png" alt="">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td></tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="w-75 d-flex justify-content-end m-3">
+                                                    <p class="fw-bold me-1">Status : </p>
+                                                    <p class="text-success ms-1">Diproses</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Rp 550.000</td>
+                                <td>
+                                    <svg width="61" height="26" viewBox="0 0 61 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect y="1" width="61" height="23" rx="8" fill="#90E0EF"/>
+                                        <path d="M14.8305 11.084C14.8305 11.78 14.5905 12.36 14.1105 12.824C13.6385 13.28 12.9145 13.508 11.9385 13.508H10.3305V17H9.23845V8.636H11.9385C12.8825 8.636 13.5985 8.864 14.0865 9.32C14.5825 9.776 14.8305 10.364 14.8305 11.084ZM11.9385 12.608C12.5465 12.608 12.9945 12.476 13.2825 12.212C13.5705 11.948 13.7145 11.572 13.7145 11.084C13.7145 10.052 13.1225 9.536 11.9385 9.536H10.3305V12.608H11.9385ZM17.2797 11.492C17.4717 11.116 17.7437 10.824 18.0957 10.616C18.4557 10.408 18.8917 10.304 19.4037 10.304V11.432H19.1157C17.8917 11.432 17.2797 12.096 17.2797 13.424V17H16.1877V10.424H17.2797V11.492ZM23.5322 17.108C22.9162 17.108 22.3562 16.968 21.8522 16.688C21.3562 16.408 20.9642 16.012 20.6762 15.5C20.3962 14.98 20.2562 14.38 20.2562 13.7C20.2562 13.028 20.4002 12.436 20.6882 11.924C20.9842 11.404 21.3842 11.008 21.8882 10.736C22.3922 10.456 22.9562 10.316 23.5802 10.316C24.2042 10.316 24.7682 10.456 25.2722 10.736C25.7762 11.008 26.1722 11.4 26.4602 11.912C26.7562 12.424 26.9042 13.02 26.9042 13.7C26.9042 14.38 26.7522 14.98 26.4482 15.5C26.1522 16.012 25.7482 16.408 25.2362 16.688C24.7242 16.968 24.1562 17.108 23.5322 17.108ZM23.5322 16.148C23.9242 16.148 24.2922 16.056 24.6362 15.872C24.9802 15.688 25.2562 15.412 25.4642 15.044C25.6802 14.676 25.7882 14.228 25.7882 13.7C25.7882 13.172 25.6842 12.724 25.4762 12.356C25.2682 11.988 24.9962 11.716 24.6602 11.54C24.3242 11.356 23.9602 11.264 23.5682 11.264C23.1682 11.264 22.8002 11.356 22.4642 11.54C22.1362 11.716 21.8722 11.988 21.6722 12.356C21.4722 12.724 21.3722 13.172 21.3722 13.7C21.3722 14.236 21.4682 14.688 21.6602 15.056C21.8602 15.424 22.1242 15.7 22.4522 15.884C22.7802 16.06 23.1402 16.148 23.5322 16.148ZM27.932 13.7C27.932 13.02 28.068 12.428 28.34 11.924C28.612 11.412 28.988 11.016 29.468 10.736C29.956 10.456 30.512 10.316 31.136 10.316C31.944 10.316 32.608 10.512 33.128 10.904C33.656 11.296 34.004 11.84 34.172 12.536H32.996C32.884 12.136 32.664 11.82 32.336 11.588C32.016 11.356 31.616 11.24 31.136 11.24C30.512 11.24 30.008 11.456 29.624 11.888C29.24 12.312 29.048 12.916 29.048 13.7C29.048 14.492 29.24 15.104 29.624 15.536C30.008 15.968 30.512 16.184 31.136 16.184C31.616 16.184 32.016 16.072 32.336 15.848C32.656 15.624 32.876 15.304 32.996 14.888H34.172C33.996 15.56 33.644 16.1 33.116 16.508C32.588 16.908 31.928 17.108 31.136 17.108C30.512 17.108 29.956 16.968 29.468 16.688C28.988 16.408 28.612 16.012 28.34 15.5C28.068 14.988 27.932 14.388 27.932 13.7ZM41.6291 13.46C41.6291 13.668 41.6171 13.888 41.5931 14.12H36.3371C36.3771 14.768 36.5971 15.276 36.9971 15.644C37.4051 16.004 37.8971 16.184 38.4731 16.184C38.9451 16.184 39.3371 16.076 39.6491 15.86C39.9691 15.636 40.1931 15.34 40.3211 14.972H41.4971C41.3211 15.604 40.9691 16.12 40.4411 16.52C39.9131 16.912 39.2571 17.108 38.4731 17.108C37.8491 17.108 37.2891 16.968 36.7931 16.688C36.3051 16.408 35.9211 16.012 35.6411 15.5C35.3611 14.98 35.2211 14.38 35.2211 13.7C35.2211 13.02 35.3571 12.424 35.6291 11.912C35.9011 11.4 36.2811 11.008 36.7691 10.736C37.2651 10.456 37.8331 10.316 38.4731 10.316C39.0971 10.316 39.6491 10.452 40.1291 10.724C40.6091 10.996 40.9771 11.372 41.2331 11.852C41.4971 12.324 41.6291 12.86 41.6291 13.46ZM40.5011 13.232C40.5011 12.816 40.4091 12.46 40.2251 12.164C40.0411 11.86 39.7891 11.632 39.4691 11.48C39.1571 11.32 38.8091 11.24 38.4251 11.24C37.8731 11.24 37.4011 11.416 37.0091 11.768C36.6251 12.12 36.4051 12.608 36.3491 13.232H40.5011ZM45.3985 17.108C44.8945 17.108 44.4425 17.024 44.0425 16.856C43.6425 16.68 43.3265 16.44 43.0945 16.136C42.8625 15.824 42.7345 15.468 42.7105 15.068H43.8385C43.8705 15.396 44.0225 15.664 44.2945 15.872C44.5745 16.08 44.9385 16.184 45.3865 16.184C45.8025 16.184 46.1305 16.092 46.3705 15.908C46.6105 15.724 46.7305 15.492 46.7305 15.212C46.7305 14.924 46.6025 14.712 46.3465 14.576C46.0905 14.432 45.6945 14.292 45.1585 14.156C44.6705 14.028 44.2705 13.9 43.9585 13.772C43.6545 13.636 43.3905 13.44 43.1665 13.184C42.9505 12.92 42.8425 12.576 42.8425 12.152C42.8425 11.816 42.9425 11.508 43.1425 11.228C43.3425 10.948 43.6265 10.728 43.9945 10.568C44.3625 10.4 44.7825 10.316 45.2545 10.316C45.9825 10.316 46.5705 10.5 47.0185 10.868C47.4665 11.236 47.7065 11.74 47.7385 12.38H46.6465C46.6225 12.036 46.4825 11.76 46.2265 11.552C45.9785 11.344 45.6425 11.24 45.2185 11.24C44.8265 11.24 44.5145 11.324 44.2825 11.492C44.0505 11.66 43.9345 11.88 43.9345 12.152C43.9345 12.368 44.0025 12.548 44.1385 12.692C44.2825 12.828 44.4585 12.94 44.6665 13.028C44.8825 13.108 45.1785 13.2 45.5545 13.304C46.0265 13.432 46.4105 13.56 46.7065 13.688C47.0025 13.808 47.2545 13.992 47.4625 14.24C47.6785 14.488 47.7905 14.812 47.7985 15.212C47.7985 15.572 47.6985 15.896 47.4985 16.184C47.2985 16.472 47.0145 16.7 46.6465 16.868C46.2865 17.028 45.8705 17.108 45.3985 17.108ZM51.668 17.108C51.164 17.108 50.712 17.024 50.312 16.856C49.912 16.68 49.596 16.44 49.364 16.136C49.132 15.824 49.004 15.468 48.98 15.068H50.108C50.14 15.396 50.292 15.664 50.564 15.872C50.844 16.08 51.208 16.184 51.656 16.184C52.072 16.184 52.4 16.092 52.64 15.908C52.88 15.724 53 15.492 53 15.212C53 14.924 52.872 14.712 52.616 14.576C52.36 14.432 51.964 14.292 51.428 14.156C50.94 14.028 50.54 13.9 50.228 13.772C49.924 13.636 49.66 13.44 49.436 13.184C49.22 12.92 49.112 12.576 49.112 12.152C49.112 11.816 49.212 11.508 49.412 11.228C49.612 10.948 49.896 10.728 50.264 10.568C50.632 10.4 51.052 10.316 51.524 10.316C52.252 10.316 52.84 10.5 53.288 10.868C53.736 11.236 53.976 11.74 54.008 12.38H52.916C52.892 12.036 52.752 11.76 52.496 11.552C52.248 11.344 51.912 11.24 51.488 11.24C51.096 11.24 50.784 11.324 50.552 11.492C50.32 11.66 50.204 11.88 50.204 12.152C50.204 12.368 50.272 12.548 50.408 12.692C50.552 12.828 50.728 12.94 50.936 13.028C51.152 13.108 51.448 13.2 51.824 13.304C52.296 13.432 52.68 13.56 52.976 13.688C53.272 13.808 53.524 13.992 53.732 14.24C53.948 14.488 54.06 14.812 54.068 15.212C54.068 15.572 53.968 15.896 53.768 16.184C53.568 16.472 53.284 16.7 52.916 16.868C52.556 17.028 52.14 17.108 51.668 17.108Z" fill="white"/>
+                                    </svg>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> R004
+
+                                </td>
+                                <td>22/04/2021</td>
+                                <td>
+                                    <p>
+                                        <a href="#o1" class="link-primary text-decoration-none"  role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">Simmons</a>
+                                    </p>
+                                </td>
+                                <td>Rp 450.000</td>
+                                <td>
+                                    <svg width="61" height="26" viewBox="0 0 61 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect y="1" width="61" height="23" rx="8" fill="#110F24" fill-opacity="0.2"/>
+                                        <path d="M10.6469 12.812C10.6469 11.996 10.8309 11.264 11.1989 10.616C11.5669 9.96 12.0669 9.448 12.6989 9.08C13.3389 8.712 14.0469 8.528 14.8229 8.528C15.7349 8.528 16.5309 8.748 17.2109 9.188C17.8909 9.628 18.3869 10.252 18.6989 11.06H17.3909C17.1589 10.556 16.8229 10.168 16.3829 9.896C15.9509 9.624 15.4309 9.488 14.8229 9.488C14.2389 9.488 13.7149 9.624 13.2509 9.896C12.7869 10.168 12.4229 10.556 12.1589 11.06C11.8949 11.556 11.7629 12.14 11.7629 12.812C11.7629 13.476 11.8949 14.06 12.1589 14.564C12.4229 15.06 12.7869 15.444 13.2509 15.716C13.7149 15.988 14.2389 16.124 14.8229 16.124C15.4309 16.124 15.9509 15.992 16.3829 15.728C16.8229 15.456 17.1589 15.068 17.3909 14.564H18.6989C18.3869 15.364 17.8909 15.984 17.2109 16.424C16.5309 16.856 15.7349 17.072 14.8229 17.072C14.0469 17.072 13.3389 16.892 12.6989 16.532C12.0669 16.164 11.5669 15.656 11.1989 15.008C10.8309 14.36 10.6469 13.628 10.6469 12.812ZM19.9164 13.688C19.9164 13.016 20.0524 12.428 20.3244 11.924C20.5964 11.412 20.9684 11.016 21.4404 10.736C21.9204 10.456 22.4524 10.316 23.0364 10.316C23.6124 10.316 24.1124 10.44 24.5364 10.688C24.9604 10.936 25.2764 11.248 25.4844 11.624V10.424H26.5884V17H25.4844V15.776C25.2684 16.16 24.9444 16.48 24.5124 16.736C24.0884 16.984 23.5924 17.108 23.0244 17.108C22.4404 17.108 21.9124 16.964 21.4404 16.676C20.9684 16.388 20.5964 15.984 20.3244 15.464C20.0524 14.944 19.9164 14.352 19.9164 13.688ZM25.4844 13.7C25.4844 13.204 25.3844 12.772 25.1844 12.404C24.9844 12.036 24.7124 11.756 24.3684 11.564C24.0324 11.364 23.6604 11.264 23.2524 11.264C22.8444 11.264 22.4724 11.36 22.1364 11.552C21.8004 11.744 21.5324 12.024 21.3324 12.392C21.1324 12.76 21.0324 13.192 21.0324 13.688C21.0324 14.192 21.1324 14.632 21.3324 15.008C21.5324 15.376 21.8004 15.66 22.1364 15.86C22.4724 16.052 22.8444 16.148 23.2524 16.148C23.6604 16.148 24.0324 16.052 24.3684 15.86C24.7124 15.66 24.9844 15.376 25.1844 15.008C25.3844 14.632 25.4844 14.196 25.4844 13.7ZM31.6378 10.304C32.4378 10.304 33.0858 10.548 33.5818 11.036C34.0778 11.516 34.3258 12.212 34.3258 13.124V17H33.2458V13.28C33.2458 12.624 33.0818 12.124 32.7538 11.78C32.4258 11.428 31.9778 11.252 31.4098 11.252C30.8338 11.252 30.3738 11.432 30.0298 11.792C29.6938 12.152 29.5258 12.676 29.5258 13.364V17H28.4338V10.424H29.5258V11.36C29.7418 11.024 30.0338 10.764 30.4018 10.58C30.7778 10.396 31.1898 10.304 31.6378 10.304ZM35.7015 13.7C35.7015 13.02 35.8375 12.428 36.1095 11.924C36.3815 11.412 36.7575 11.016 37.2375 10.736C37.7255 10.456 38.2815 10.316 38.9055 10.316C39.7135 10.316 40.3775 10.512 40.8975 10.904C41.4255 11.296 41.7735 11.84 41.9415 12.536H40.7655C40.6535 12.136 40.4335 11.82 40.1055 11.588C39.7855 11.356 39.3855 11.24 38.9055 11.24C38.2815 11.24 37.7775 11.456 37.3935 11.888C37.0095 12.312 36.8175 12.916 36.8175 13.7C36.8175 14.492 37.0095 15.104 37.3935 15.536C37.7775 15.968 38.2815 16.184 38.9055 16.184C39.3855 16.184 39.7855 16.072 40.1055 15.848C40.4255 15.624 40.6455 15.304 40.7655 14.888H41.9415C41.7655 15.56 41.4135 16.1 40.8855 16.508C40.3575 16.908 39.6975 17.108 38.9055 17.108C38.2815 17.108 37.7255 16.968 37.2375 16.688C36.7575 16.408 36.3815 16.012 36.1095 15.5C35.8375 14.988 35.7015 14.388 35.7015 13.7ZM49.3986 13.46C49.3986 13.668 49.3866 13.888 49.3626 14.12H44.1066C44.1466 14.768 44.3666 15.276 44.7666 15.644C45.1746 16.004 45.6666 16.184 46.2426 16.184C46.7146 16.184 47.1066 16.076 47.4186 15.86C47.7386 15.636 47.9626 15.34 48.0906 14.972H49.2666C49.0906 15.604 48.7386 16.12 48.2106 16.52C47.6826 16.912 47.0266 17.108 46.2426 17.108C45.6186 17.108 45.0586 16.968 44.5626 16.688C44.0746 16.408 43.6906 16.012 43.4106 15.5C43.1306 14.98 42.9906 14.38 42.9906 13.7C42.9906 13.02 43.1266 12.424 43.3986 11.912C43.6706 11.4 44.0506 11.008 44.5386 10.736C45.0346 10.456 45.6026 10.316 46.2426 10.316C46.8666 10.316 47.4186 10.452 47.8986 10.724C48.3786 10.996 48.7466 11.372 49.0026 11.852C49.2666 12.324 49.3986 12.86 49.3986 13.46ZM48.2706 13.232C48.2706 12.816 48.1786 12.46 47.9946 12.164C47.8106 11.86 47.5586 11.632 47.2386 11.48C46.9266 11.32 46.5786 11.24 46.1946 11.24C45.6426 11.24 45.1706 11.416 44.7786 11.768C44.3946 12.12 44.1746 12.608 44.1186 13.232H48.2706ZM51.932 8.12V17H50.84V8.12H51.932Z" fill="white"/>
+                                    </svg>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <!-- table request -->
+
+                    <!-- table dana Tersimpan -->
+                    <div class="d-flex justify-content-center ">
+                        <div class="card text-dark p-1 mb-5 bg-body rounded table-responsive col-xl-8 p-3">
+                            <table class="display" id="dana">
+                                <h4 class="py-3 px-2 fw-bold">Dana Tersimpan</h4>
+                                <thead>
+                                <tr class="border-bottom">
+                                    <th scope="col">Artist</th>
+                                    <th scope="col">Total Pendapatan</th>
+                                    <th scope="col">Pencairan</th>
+                                    <th scope="col">Dana Tersimpan</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>  <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#moddanater">
+                                        Rayes
+                                    </a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="moddanater" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content"style="border-radius: 30px;">
+                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">
+                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Riwayat Pencairan</h4>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="d-flex align-items-baseline justify-content-between">
+                                                            <div class="d-flex p-2">
+                                                                <p class="fw-bold me-2">Nama Pena : </p>
+                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Daniel Hyu
+                                                            </div>
+                                                            <button class="btn sm-auto">
+                                                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>
+                                                                </svg>
+                                                            </button>
+
+                                                        </div>
+
+                                                        <div class="container table-responsive d-flex justify-content-center">
+                                                            <table class="table table-bordered border-secondary border-left border-right">
+                                                                <thead>
+                                                                <tr class="table-bordered border-secondary">
+                                                                    <th scope="col" class="bg-secondary border-secondary ">ID Request</th>
+                                                                    <th scope="col" class="border border-secondary bg-secondary">Tanggal </th>
+                                                                    <th scope="col" class="border border-secondary bg-secondary">Nominal</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td  class="border-secondary ">R114</td>
+                                                                    <td class="border border-secondary" >27/28/2018</td>
+                                                                    <td class="border border-secondary">Rp 100.000 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td  class="border-secondary ">R112</td>
+                                                                    <td class="border border-secondary" >27/28/2012</td>
+                                                                    <td class="border border-secondary">Rp 100.000 </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td  class="border-secondary ">R113</td>
+                                                                    <td class="border border-secondary" >27/28/2013</td>
+                                                                    <td class="border border-secondary">Rp 100.000 </td>
+                                                                </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></td>
+                                    <td>Rp 600.000</td>
+                                    <td>Rp 600.000</td>
+                                    <td>Rp 0</td>
+                                </tr>
+                                <tr>
+                                    <td><a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#moddanater">
+                                    Daniel Hyu
+                                    </a></td>
+                                    <td>Rp 500.000</td>
+                                    <td>Rp 0</td>
+                                    <td>Rp 500.000</td>
+                                </tr>
+                                <tr>
+                                    <td><a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#moddanater">
+                                        Hillary
+                                    </a></td>
+                                    <td>Rp 500.000</td>
+                                    <td>Rp 400.000</td>
+                                    <td>Rp 100.000</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="d-flex justify-content-end">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        <li class="page-item mx-2">
+                                            <a class="button" href="#" aria-label="Previous">
+                                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.9654 14.0002C6.9049 13.9961 6.8895 13.9966 6.82959 13.9863C6.69489 13.963 6.56533 13.912 6.45103 13.837C6.39322 13.7991 6.34277 13.755 6.29237 13.7079L0.292112 7.70767C0.250711 7.66332 0.23916 7.65322 0.202409 7.60477C0.161157 7.55037 0.125505 7.49172 0.096154 7.43001C-0.0320515 7.16045 -0.0320515 6.84059 0.096154 6.57103C0.125505 6.50932 0.161157 6.45067 0.202409 6.39627C0.23916 6.34787 0.250711 6.33772 0.292112 6.29341L6.29237 0.293157C6.33672 0.251755 6.34687 0.240155 6.39527 0.203453C6.52238 0.106999 6.67239 0.041896 6.82959 0.0147448C6.94185 -0.00455598 7.0572 -0.00455598 7.16946 0.0147448C7.25921 0.0302455 7.34677 0.0580467 7.42902 0.0971484C7.74143 0.245705 7.95894 0.553868 7.99434 0.897983C8.00829 1.03399 7.99404 1.17249 7.95269 1.3028C7.91824 1.41135 7.86519 1.51381 7.79638 1.60451C7.75963 1.65297 7.74808 1.66307 7.70668 1.70742L2.41355 7.00054L7.70668 12.2937L7.75328 12.3436C7.79153 12.3906 7.80243 12.4015 7.83574 12.4523C7.89819 12.5475 7.94419 12.6534 7.97114 12.764C7.99269 12.8525 8.00209 12.9439 7.99899 13.0349C7.98719 13.3807 7.79118 13.7029 7.48967 13.8725C7.39042 13.9283 7.28166 13.9669 7.16946 13.9863C7.10955 13.9966 7.09415 13.9961 7.03365 14.0002C7.0109 14.0002 6.98815 14.0002 6.9654 14.0002Z" fill="#3D3C4A"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li class="page-item mx-2"><a class=" page-link button-primary bg-primary" style="background: #00B4D8; border-radius: 9px;" href="#">1</a></li>
+                                        <li class="page-item mx-2"><a class=" page-link" style="border-radius: 9px;" href="#">2</a></li>
+                                        <li class="page-item mx-2">
+                                            <a class="button" href="#" aria-label="Next">
+                                                <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.0346 -0.000244058C1.0951 0.00390633 1.1105 0.00340565 1.17041 0.0137063C1.30511 0.0369569 1.43467 0.088009 1.54897 0.163013C1.60678 0.200914 1.65723 0.245016 1.70763 0.292069L7.70789 6.29233C7.74929 6.33668 7.76084 6.34678 7.79759 6.39523C7.83884 6.44963 7.87449 6.50828 7.90385 6.56999C8.03205 6.83955 8.03205 7.15941 7.90385 7.42897C7.87449 7.49068 7.83884 7.54933 7.79759 7.60373C7.76084 7.65213 7.74929 7.66228 7.70789 7.70659L1.70763 13.7068C1.66328 13.7482 1.65313 13.7598 1.60473 13.7965C1.47762 13.893 1.32761 13.9581 1.17041 13.9853C1.05815 14.0046 0.942797 14.0046 0.830543 13.9853C0.740789 13.9698 0.653235 13.942 0.570982 13.9029C0.258568 13.7543 0.0410585 13.4461 0.00565719 13.102C-0.00829316 12.966 0.00595759 12.8275 0.0473094 12.6972C0.0817609 12.5886 0.134813 12.4862 0.203616 12.3955C0.240367 12.347 0.251918 12.3369 0.29332 12.2926L5.58645 6.99946L0.29332 1.70633L0.246718 1.65643C0.208466 1.60942 0.197565 1.59847 0.164264 1.54767C0.101811 1.45247 0.0558093 1.34661 0.028858 1.23601C0.0073069 1.1475 -0.00209347 1.0561 0.00100692 0.965098C0.0128072 0.619332 0.208816 0.297069 0.510329 0.127511C0.609583 0.0717088 0.718337 0.0330573 0.830542 0.0137063C0.890445 0.00340566 0.905846 0.00390633 0.966348 -0.000244057C0.989099 -0.000244057 1.01185 -0.000244057 1.0346 -0.000244058Z" fill="#3D3C4A"/>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div> -->
+                        </div>
+                    </div>
+                    <!-- table dana Tersimpan -->
+
+                    <!-- table penjualan dan pencarian dana -->
+
+<!--                    <div class="container d-flex justify-content-center flex-wrap">-->
+<!--                        <div class="card  mx-3 shadow p-3 mb-5 bg-body rounded col-xl-5">-->
+<!--                            <div class="d-flex justify-content-between  ">-->
+<!--                                <h5 class="text-dark fw-bold">Penjualan</h5>-->
+
+<!--                                <svg width="14" height="16" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9587 7.875H12.1253V0.625H4.87533V7.875H0.0419922L8.50033 16.3333L16.9587 7.875ZM0.0419922 18.75V21.1667H16.9587V18.75H0.0419922Z" fill="#3D3C4A"/>-->
+<!--                                </svg>-->
+<!--                            </div>-->
+<!--                            <div class="table-responsive">-->
+<!--                                <table class="table table-borderless text-dark text-center" >-->
+<!--                                <thead>-->
+<!--                                <tr class="border-bottom">-->
+<!--                                    <th scope="col">Nama Pena</th>-->
+<!--                                    <th scope="col">Transaksi</th>-->
+<!--                                    <th scope="col">Total Penjualan</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <td>Rayes</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#pen1">-->
+<!--                                            4-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="pen1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Rayes-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Produk</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Harga</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary" >Sketsa abc <br> art book</td>-->
+<!--                                                                    <td>Rp 100.000 <br> Rp 100.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>19/04/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Sketsa Animal</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Game Illustratition</td>-->
+<!--                                                                    <td>Rp 200.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>Rp 600.000</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Daniel Hyu</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#pen2">-->
+<!--                                            6-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="pen2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Daniel Hyu-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Produk</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Harga</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary" >Sketsa abc <br> art book</td>-->
+<!--                                                                    <td>Rp 100.000 <br> Rp 100.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>19/04/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Sketsa Animal</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Game Illustratition</td>-->
+<!--                                                                    <td>Rp 200.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>Rp 500.000</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Hilarry</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#pen4">-->
+<!--                                            10-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="pen4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Hilarry-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Produk</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Harga</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary" >Sketsa abc <br> art book</td>-->
+<!--                                                                    <td>Rp 100.000 <br> Rp 100.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>19/04/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Sketsa Animal</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Game Illustratition</td>-->
+<!--                                                                    <td>Rp 200.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>Rp 500.000</td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Simmons</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#pen3">-->
+<!--                                            10-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="pen3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Simmons-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Produk</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Harga</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary" >Sketsa abc <br> art book</td>-->
+<!--                                                                    <td>Rp 100.000 <br> Rp 100.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>19/04/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Sketsa Animal</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>27/05/2021</td>-->
+<!--                                                                    <td class="border border-secondary">Game Illustratition</td>-->
+<!--                                                                    <td>Rp 200.000</td>-->
+<!--                                                                </tr>-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>Rp 450.000</td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="card  mx-3 shadow p-3 mb-5 bg-body rounded col-xl-4">-->
+<!--                            <div class="d-flex justify-content-between">-->
+<!--                                <h5 class="text-dark fw-bold">Pencairan Dana</h5>-->
+<!--                                <svg width="14" height="16" viewBox="0 0 17 22" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9587 7.875H12.1253V0.625H4.87533V7.875H0.0419922L8.50033 16.3333L16.9587 7.875ZM0.0419922 18.75V21.1667H16.9587V18.75H0.0419922Z" fill="#3D3C4A"/>-->
+<!--                                </svg>-->
+<!--                            </div>-->
+<!--                            <div class="table-responsive">-->
+<!--                                 <table class="table table-borderless text-dark text-center">-->
+<!--                                <thead>-->
+<!--                                <tr class="border-bottom">-->
+<!--                                    <th scope="col">Nama Pena</th>-->
+<!--                                    <th scope="col">Riwayat</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr>-->
+<!--                                    <td>Rayes</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#dan1">-->
+<!--                                            Lihat-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="dan1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Riwayat Pencairan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Simmons-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">ID Request</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Nominal</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R114</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R125</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R247</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Daniel Hyu</td>-->
+<!--                                    <td>-->
+<!--                                        <a type="button" class="link-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#dan2">-->
+<!--                                            Lihat-->
+<!--                                        </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="dan2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Riwayat Pencairan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Simmons-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">ID Request</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Nominal</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R114</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R125</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R247</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Hilarry</td>-->
+<!--                                    <td><a type="button" class="link-success text-decoration-none" data-bs-toggle="modal" data-bs-target="#dan3">-->
+<!--                                        Lihat-->
+<!--                                    </a>-->
+<!--                                        &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade" id="dan3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                                        <h4 class="modal-title fw-bold ms-2 text-white" id="dan3">Riwayat Pencairan</h4>-->
+<!--                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <div class="d-flex justify-content-between">-->
+<!--                                                            <div class="d-flex p-3">-->
+<!--                                                                <p class="fw-bold me-2">Nama Pena : </p>-->
+<!--                                                                <img src="./Ellipse 28.png" class="h-50 me-1" alt="">Simmons-->
+<!--                                                            </div>-->
+
+<!--                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                                <path d="M13.6061 9.24707L8.5 14.3532L3.39385 9.24707L4.33301 8.30791L7.83594 11.8108V0H9.16406V11.8108L12.667 8.30791L13.6061 9.24707ZM17 15.6719H0V17H17V15.6719Z" fill="black"/>-->
+<!--                                                            </svg>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="container table-responsive d-flex justify-content-center">-->
+<!--                                                            <table class="table table-bordered border-secondary border-left border-right">-->
+<!--                                                                <thead>-->
+<!--                                                                <tr class="table-bordered border-secondary">-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">ID Request</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);" class="border border-secondary">Tanggal</th>-->
+<!--                                                                    <th scope="col" style="background-color: rgba(196, 196, 196, 0.5);">Nominal</th>-->
+<!--                                                                </tr>-->
+<!--                                                                </thead>-->
+<!--                                                                <tbody>-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R114</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R125</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                <tr>-->
+<!--                                                                    <td>R247</td>-->
+<!--                                                                    <td class="border border-secondary">27/05/2021</td>-->
+<!--                                                                    <td>Rp 150.000</td>-->
+<!--                                                                </tr-->
+<!--                                                                </tbody>-->
+<!--                                                            </table>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div></td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                                |</div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <!-- table penjualan dan pencarian dana -->
+
+                    <!-- table Transaksi -->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <div class="col-md-9 card p-3 mb-2 bg-white text-dark  mt-4 mb-5">    -->
+<!--                            <form class="d-flex justify-content-between">-->
+<!--                                <p class="fs-3 fw-bold">Transaksi</p>        -->
+<!--                            </form>-->
+<!--                            <div class="table-responsive p-3">-->
+<!--                        <table class="display text-center" id="trans1">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th scope="col">No</th>-->
+<!--                                <th scope="col">Tanggal</th>-->
+<!--                                <th scope="col">Transaksi</th>-->
+<!--                                <th scope="col">Iklan</th>-->
+<!--                                <th scope="col">total</th>                                                  -->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                              <tr>-->
+<!--                                <td>1</td>-->
+<!--                                <td>26/05/2021</td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra1">-->
+<!--                                        Rp 200.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">26 Mei 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Costumer</th>-->
+<!--                                                    <th scope="col">Komisi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                    <th scope="col">Profit (10%)</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>-->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona-->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaExpress</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    -->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra2">-->
+<!--                                        Rp 100.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Iklan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">26 Mei 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Artist</th>-->
+<!--                                                    <th scope="col">Nama Iklan</th>-->
+<!--                                                    <th scope="col">Durasi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaiExpress</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div>                        -->
+<!--                                </td>-->
+<!--                                <td>Rp 300.000</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>2</td>-->
+<!--                                <td>22/04/2021</td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra11">-->
+<!--                                        Rp 200.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra11" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">22 April 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Costumer</th>-->
+<!--                                                    <th scope="col">Komisi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                    <th scope="col">Profit (10%)</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>-->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona-->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaExpress</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra22">-->
+<!--                                        Rp 100.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra22" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Iklan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">22 April 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Artist</th>-->
+<!--                                                    <th scope="col">Nama Iklan</th>-->
+<!--                                                    <th scope="col">Durasi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaiExpress</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div> -->
+<!--                                </td>-->
+<!--                                <td>Rp 300.000</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td>3</td>-->
+<!--                                <td>18/04/2021</td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra111">-->
+<!--                                        Rp 200.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra111" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Penjualan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">18 April 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Costumer</th>-->
+<!--                                                    <th scope="col">Komisi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                    <th scope="col">Profit (10%)</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>-->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona-->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaExpress</td>-->
+<!--                                                    <td>Rp 10.000.000</td>-->
+<!--                                                    <td>Rp 100.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a type="button" class="link-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#tra222">-->
+<!--                                        Rp 100.000-->
+<!--                                      </a>                          -->
+<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                                    <div class="modal fade" id="tra222" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
+<!--                                    <div class="modal-dialog">-->
+<!--                                    <div class="modal-content"style="border-radius: 30px;">-->
+<!--                                    <div class="modal-header" style="background-color: #163AC7 !important; border-radius: 30px 30px 0px 0px;">-->
+<!--                                    <h4 class="modal-title fw-bold ms-2 text-white" id="exampleModalLabel">Iklan</h4>                    -->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body">                                    -->
+<!--                                        <div class="d-flex justify-content-start p-2">-->
+<!--                                            <p class="p-1 text-white" style="background-color:#00B4D8 ; border-radius: 12px !important; ">18 April 2021</p> -->
+<!--                                        </div>-->
+<!--                                            -->
+<!--                                        <div class="container table-responsive d-flex justify-content-center">                                         -->
+<!--                                              <table class="table">-->
+<!--                                                <thead class="border-bottom">-->
+<!--                                                  <tr>-->
+<!--                                                    <th scope="col">Artist</th>-->
+<!--                                                    <th scope="col">Nama Iklan</th>-->
+<!--                                                    <th scope="col">Durasi</th>-->
+<!--                                                    <th scope="col">Harga</th>-->
+<!--                                                  </tr>-->
+<!--                                                </thead>-->
+<!--                                                <tbody>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>HilNature</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>-->
+<!--                                                  <tr>                                                -->
+<!--                                                    <td>-->
+<!--                                                        <img src="./Ellipse 28.png" alt="">Sona                                                    -->
+<!--                                                    </td>-->
+<!--                                                    <td>JekaiExpress</td>-->
+<!--                                                    <td>7 Hari</td>-->
+<!--                                                    <td>Rp 25.000</td>-->
+<!--                                                  </tr>                                             -->
+<!--                                                </tbody>-->
+<!--                                              </table>                                     -->
+<!--                                        </div>-->
+<!--                                    </div>                                      -->
+<!--                                    </div>-->
+<!--                                    </div>-->
+<!--                                    </div> -->
+<!--                                </td>-->
+<!--                                <td>Rp 300.000</td>-->
+<!--                            </tr>-->
+<!--                            -->
+<!--                            -->
+<!--                            </tbody>-->
+<!--                            -->
+<!--                        </table>-->
+<!--                            </div>  -->
+<!--                        </div>-->
+<!--                      </div>-->
+                    <!-- tabel Transaksi -->
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+    $('#requ').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#requ1').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#requ2').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#requ3').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#requ4').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#dana').DataTable();
+} );
+
+$(document).ready(function() {
+    $('#penj').DataTable();
+} );
+$(document).ready(function() {
+    $('#tes').DataTable();
+} );
+$(document).ready(function() {
+    $('#penc').DataTable();
+} );
+$(document).ready(function() {
+    $('#trans1').DataTable();
+} );
+
+
+</script>
+
+</body>
+</html>
